@@ -109,6 +109,7 @@ def create_customer_and_user():
     with open("customer.txt", "a") as customer_file, open("user.txt", "a") as user_file:
         customer_file.write(f"{create_customer_next_id()},{customer["name"]},{customer["NIC_NO"]},{customer["age"]},{customer["gender"]},{customer["address"]},{customer["Phone_No"]}\n")
         user_file.write(f"{create_user_next_id()},{customer["username"]},{customer["password"]}\n")
+        print("customer id :",create_customer_next_id() ,'Name :' ,customer["name"])
 
 
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
