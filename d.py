@@ -245,7 +245,7 @@ def deposit():
                     account_file.write(f"{line_part[0]},{acc_no},{new_balance}\n")
                     date_time = datetime.now().strftime('%d-%m-%Y %A %I:%M %p')
                     with open("transaction.txt", "a") as transaction_file:
-                        transaction_file.write(f"Account number,{acc_no},Last balance,{balance},Withdraw,{deposit_amount},Time,{date_time}\n")
+                        transaction_file.write(f"Account number,{acc_no},Last balance,{balance},Deposit,{deposit_amount},Time,{date_time}\n")
                         print("\naccount number :",acc_no,  "|"   "Deposit amount :",deposit_amount,   "|"  "Deposit time   :" ,date_time )
 
                        
@@ -294,7 +294,7 @@ def Withdraw():
 
                        
                     
-                    print("\nDeposit successful! Your current balance is:", new_balance)
+                    print("\nWithdrawal successful! Your current balance is:", new_balance)
                 else:
                     account_file.write(line)
             if not account_found:
@@ -460,31 +460,34 @@ def admin():
         print("Exit                         : 109\n" )
 
         try:
-            Choice = int(input("Enter your choice :"))
+            if True:
+                create_first_admin()
+                
+                Choice = int(input("Enter your choice :"))
+    
+                if Choice == 101:
+                    create_customer_and_user()
+                elif Choice == 102:
+                    Create_New_Account()
+                elif Choice == 103:
+                    deposit()
+                elif Choice == 104:
+                    Withdraw()
+                elif Choice == 105:
+                    balance()
+                elif Choice == 106:
+                    view_account()
+                elif Choice == 107:
+                    transaction_history()
+                elif Choice == 108:
+                    update()
+                elif Choice == 109:
+                    print("\nThank you")
+                    break
+                else:
+                    print("\ninvalid number! try again.")
 
-            if Choice == 101:
-                create_customer_and_user()
-            elif Choice == 102:
-                Create_New_Account()
-            elif Choice == 103:
-                deposit()
-            elif Choice == 104:
-                Withdraw()
-            elif Choice == 105:
-                balance()
-            elif Choice == 106:
-                view_account()
-            elif Choice == 107:
-                transaction_history()
-            elif Choice == 108:
-                update()
-            elif Choice == 109:
-                print("\nThank you")
-                break
-            else:
-                print("\ninvalid number! try again.")
-
-        except:
+        except ValueError:
             print("\nInvalid choice please enter a number")
 
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
@@ -503,26 +506,29 @@ def customer():
 
         Choice = int(input("\nEnter your choice :"))
       
-
-        if True:
-            customer_password()
-       
-
-            if Choice == 1:
-                deposit()
-            elif Choice == 2:
-                Withdraw()
-            elif Choice == 3:
-                balance()
-            elif Choice == 4:
-                view_account()
-            elif Choice == 5:
-                transaction_history()
-            elif Choice == 6:
-                print("\nThank you!")
-                break
-            else:
-                print("\nInvalid Number!")
+        try:
+            
+            if True:
+                customer_password()
+           
+    
+                if Choice == 1:
+                    deposit()
+                elif Choice == 2:
+                    Withdraw()
+                elif Choice == 3:
+                    balance()
+                elif Choice == 4:
+                    view_account()
+                elif Choice == 5:
+                    transaction_history()
+                elif Choice == 6:
+                    print("\nThank you!")
+                    break
+                else:
+                    print("\nInvalid Number!")
+        except ValueError:
+            print("\nInvalid choice please enter a number")
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-        
 
 def call_customer_or_admin():
@@ -534,17 +540,19 @@ def call_customer_or_admin():
         print("Exit                                 : 3\n")
         
         Select = int(input("\nEnter your choice :"))
-
-        if Select ==1:
-            admin()
-        elif Select ==2:
-            customer()
-           
-        elif Select ==3:
-            print("Thank you !")
-            break
-        else:
-            print("\ninvalid number!" "Try again" )
+        try:
+            if Select ==1:
+                admin()
+            elif Select ==2:
+                customer()
+               
+            elif Select ==3:
+                print("Thank you !")
+                break
+            else:
+                print("\ninvalid number!" "Try again" )
+        except ValueError:
+            print("\nInvalid choice please enter a number")
 
 call_customer_or_admin()
 
