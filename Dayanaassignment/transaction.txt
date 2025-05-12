@@ -1,2 +1,0 @@
-Account number,800000,Last balance,4500.0,Deposit,5000.0,Time,11-05-2025 Sunday 12:10 PM
-Account number,800000,Last balance,9500.0,Withdraw,1500.0,Time,11-05-2025 Sunday 12:11 PM

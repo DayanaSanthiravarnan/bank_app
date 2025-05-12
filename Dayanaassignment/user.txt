@@ -1,2 +1,0 @@
-U001,dayana05,dayana@123,Admin
-U002,ajay,123456
