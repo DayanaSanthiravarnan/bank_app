@@ -1,6 +1,8 @@
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_create_first_admin-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 import os
+from colorama import Fore, Back,Style,init
+init(autoreset=True)
 
 def create_customer_next_id():
     if not os.path.exists("customer.txt") or os.path.getsize("customer.txt") == 0:
@@ -21,100 +23,106 @@ def create_first_admin():
         with open("user.txt" , "a") as user_file:
             user_file.write(f"{create_user_next_id()},{adminname},{adminpassword},Admin\n")
         print('Admin Login Details: Username: ', adminname, 'Password: ',  adminpassword)
-
-
-
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
+
+
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_customer_info-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+
 def customer_info():
+    while True:
+        try:
             username = input("\nPlease enter customer username: ")
-          
-            while True:
-        
-                    password = input("(Password must be 8 characters! ) Enter customer password: ")
-                    if len(password) >= 8 :
-                        break                
-                    else:
-                        print("Password must be 8 characters !" "Please try again")
-
-            name = input("Enter customer name: ")
-            NIC_NO =input("Enter customer NIC NO: ")
-            while True:
-                NIC_NO =input("Enter customer NIC NO: ")
-                if len(NIC_NO) <= 12: 
-                    
-
-                    break
-                else:
-                    print("Re enter your NIC number !")
-
-                  
-
-
-            
-            while True:
-                try:    
-                    age = int(input("Enter customer age : "))
-                    if age <= 69:
-                        break
-                    else:
-                        print("Re enter your  age !")
-                except ValueError:
-                    print("Enter numbers only!")
-
-           
-            gender = input("Female or Male :")
-                
-
-            address = input("Enter customer address : ")
-            while True:
-                try:
-                    Phone_No = int(input('Enter customer phone number :'))
-                    break
+            user = False
+            with open("user.txt" , "r") as user_file:
+                for line in user_file:
+                    parts = line.strip().split(",")
                    
-                except ValueError:
-                    print("Enter numbers only!")
-
-            
-            return {
-                    "username": username,
-                    "password": password,   
-                    "name":name,
-                    "NIC_NO":NIC_NO,
-                    "age":age,
-                    "gender":gender,
-                    "address":address,
-                    "Phone_No":Phone_No
-                    }
-
-
-
-      
-
-    
         
+                    if username == parts[1]:
+                       user = True
+            if user:
+                    print( "your username already exit ." "Re enter your username !" )
+                                
+            else:
+                print( "successful!" )
+                break
+                        
+        except FileNotFoundError:
+            print(Fore.RED+Style.BRIGHT+"file not found .")
+           
+    while True:
+
+            password = input("(Password must be 8 characters! ) Enter customer password: ")
+            if len(password) >= 8 :
+                break                
+            else:
+                print(Fore.RED+Style.BRIGHT+"Password must be 8 characters !" "Please try again")
+
+    name = input("Enter customer name: ")
+    
+    while True:
+        NIC_NO =input("Enter customer NIC NO: ")
+        if len(NIC_NO) <= 12: 
             
-# -----------------------------------------------------------------------------------------------------------------        
-# def admin_info():
-    
-#     username = input("Enter your username: ")
-#     password = input("Enter your password: ")
 
-#     return {            
-#             "username": username,
-#             "password": password      
-#         }
-    
-#     choose = input("are you customer or admin :")
-#     if choose == "1":
-#         customer_info()
-#     elif choose == "2":
-#         admin_info()
-#     else:
-#         print("invalid number ")
+            break
+        else:
+            print("Re enter your NIC number !")
 
-# # -------------------------------------------------------------------------------------------------------------------
+    while True:
+        try:    
+            age = int(input("Enter customer age : "))
+            if age <= 69:
+                break
+            else:
+                print(Fore.RED+Style.BRIGHT+"Re enter your  age !")
+        except ValueError:
+            print(Fore.RED+Style.BRIGHT+"Enter numbers only!")
+
+    while True :
+        try:   
+            print("Male     :male" )
+            print("Female   :female")
+            gender =input("Enter your number :")
+            
+            if gender =="male":
+                
+                break
+            elif gender =="female":
+                
+                break
+            else:
+                print(Fore.RED+Style.BRIGHT+"Invalid choice")
+        except ValueError :
+            print(Fore.RED+Style.BRIGHT+"Enter number only!")
+            
+    address = input("Enter customer address : ")
+    while True:
+        try:
+            Phone_No = int(input('Enter customer phone number :'))
+            if Phone_No == 10:
+
+                break
+            else:
+                print("re enter your phone number!")
+            
+        except ValueError:
+            print(Fore.RED+Style.BRIGHT+"Enter numbers only!")
+
+    
+    return {
+            "username": username,
+            "password": password,   
+            "name":name,
+            "NIC_NO":NIC_NO,
+            "age":age,
+            "gender":gender,
+            "address":address,
+            "Phone_No":Phone_No
+            }
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
@@ -124,11 +132,11 @@ def create_customer_and_user():
 
     with open("customer.txt", "a") as customer_file, open("user.txt", "a") as user_file:
         customer_file.write(f"{create_customer_next_id()},{customer["name"]},{customer["NIC_NO"]},{customer["age"]},{customer["gender"]},{customer["address"]},{customer["Phone_No"]}\n")
-        user_file.write(f"{create_user_next_id()},{customer["username"]},{customer["password"]}\n")
-        print("customer id :",create_customer_next_id() ,'Name :' ,customer["name"])
+        user_file.write(f"{create_user_next_id()},{customer["username"]},{customer["password"]},{create_customer_next_id()}\n")
+        print(Fore.CYAN+Style.BRIGHT+"\ncustomer id :",create_customer_next_id() ,'Name :' ,customer["name"])
+ 
 
-
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Create_New_Account-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
 import os
@@ -147,10 +155,10 @@ def Create_New_Account():
                     
                     break  
     except FileNotFoundError:
-        print("\nCustomer file not found.")
+        print(Fore.RED+Style.BRIGHT+"\nCustomer file not found.")
 
     if not id_number:
-        print("\nCustomer with ID" ,id_number, "not found. Please create a customer.")
+        print(Fore.RED+Style.BRIGHT+"\nCustomer with ID" ,id_number, "not found. Please create a customer.")
         return 
 
    
@@ -174,7 +182,7 @@ def Create_New_Account():
             ac_balance = float(input("\n(Please deposit only 600 =< !) Enter your initial deposit money :"))
             if ac_balance >= 600:
 
-                print("\nNew account created with Account No:", new_account_no , ac_balance)
+                print(Fore.CYAN+Style.BRIGHT+"\nNew account created with Account No:", new_account_no ,"Your balance is RS.", ac_balance)
                 date_time = datetime.now().strftime('%d-%m-%Y %A %I:%M %p')
                 correct_balance = ac_balance
 
@@ -186,146 +194,127 @@ def Create_New_Account():
             
         
     except Exception :
-        print("\nError writing to account_no.txt: ")
+        print(Fore.RED+Style.BRIGHT+"\nError writing to account_no.txt: ")
 
     return str(new_account_no)
 
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_balance-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
 def balance():
-    try: 
-        ACCOUNT_NO = input("\nEnter your account number : ")
-        balance = None
-
-        
-        with open("account_no.txt", "r") as account_file:
+    account_number = input("Enter your account number:")
+    try:
+        with open("account_no.txt" , "r") as account_file:
             for line in account_file:
-                acc_no = line.strip().split(",")
-                if len(acc_no) > 1 and acc_no[1] == ACCOUNT_NO:
-                    
-                        break
-            else:
-                print(f"\nAccount number {ACCOUNT_NO} not found.")
-                return  
-        
-        with open("account_no.txt", "r") as account_file:
-            for line in account_file:
-                balance_data = line.strip().split(",")
-                if len(balance_data) > 2: 
-                    balance = balance_data[2]  
+                parts = line.strip().split(",")
+                if account_number == parts[1]:
+                    balance = float(parts[-1])
+                    print("Account number available !""your balance is",balance)
                     break
+                    
 
-        if balance is not None:
-            print(f"\nAccount Number: {ACCOUNT_NO}, Balance: {balance}")
-        else:
-            print("\nBalance not found.")
-
+            else:
+                print(Fore.RED+Style.BRIGHT+f"\nAccount number : {account_number} not found.")
     except FileNotFoundError:
-        print("\nCustomer file not found.")
+        print(Fore.RED+Style.BRIGHT+"account file not found")
+    
 
 
 import os
 from datetime import datetime
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_amount-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
 def amount():
     while True:
         try:
             amt = float(input("\nEnter amount: "))
-            if amt <= 0:
-                raise ValueError("\nAmount must be positive.")
-            return amt
+            if amt >= 0:
+                
+                return amt
+            else:
+                print("Enter invalid amount!" )
         except ValueError:
-            print("\nInvalid input. Please enter a valid amount.")
+            print(Fore.RED+Style.BRIGHT+"\nInvalid input. Please enter a valid amount.")
 
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-deposit_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 import os
 from datetime import datetime
-
 def deposit():
     acc_no = input("\nenter customer account number :").strip()
-    account_found = False
     try:
-        with open("account_no.txt" , 'r') as account_file:
-            lines = account_file.readlines()
-
-        with open("account_no.txt" , 'w') as account_file:
-            for line in lines:
-                line_part = line.strip().split(",")
-                if len(line_part) < 3:
-                    account_file.write(line)
-                    continue
-                if line_part[1] == acc_no:
-                    account_found = True
-                    balance = float(line_part[2])
+        
+        with open("account_no.txt" , "r") as account_file:
+            for line in account_file:
+                parts = line.strip().split(",")
+                if acc_no == parts[1]:
+                    balance = float(parts[-1])
                     deposit_amount = amount()
                     new_balance = balance + deposit_amount
-                    account_file.write(f"{line_part[0]},{acc_no},{new_balance}\n")
+                    with open("account_no.txt" , "w") as account_file:
+                        account_file.write(f"{parts[0]},{parts[1]},{new_balance}\n")
                     date_time = datetime.now().strftime('%d-%m-%Y %A %I:%M %p')
-                    with open("transaction.txt", "a") as transaction_file:
+                    with open("transaction.txt" , "a") as transaction_file:
                         transaction_file.write(f"{acc_no},{balance},Deposit,{deposit_amount},{date_time}\n")
-                        print("\naccount number :",acc_no,  "|"   "Deposit amount :",deposit_amount,   "|"  "Deposit time   :" ,date_time )
+                        print(Fore.CYAN+Style.BRIGHT+"\nDeposit successful! Your current balance is:", new_balance)
+                        print(Fore.CYAN+Style.BRIGHT+"\naccount number :",acc_no,  "|"   "Deposit amount :",deposit_amount,   "|"  "Deposit time   :" ,date_time )
+                        
+                        break
 
-                       
-                    
-                    print("\nDeposit successful! Your current balance is:", new_balance)
-                else:
-                    account_file.write(line)
-            if not account_found:
-                print("\naccount number not found:",acc_no)
+            else:
+                print("account number:",acc_no ,"not found!")
+
     except FileNotFoundError:
-        print("\naccount_no.txt not found" )
-    except Exception:
-        print("\nwelcome !")
+        print("account file not found!")
+
+                
+
+
 
 
 
 
 import os
 from datetime import datetime
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_Withdraw-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
 def Withdraw():
-    acc_no = input("\nenter customer account number :").strip()
-    account_found = False
-    try:
-        with open("account_no.txt" , 'r') as account_file:
-            lines = account_file.readlines()
-
-        with open("account_no.txt" , 'w') as account_file:
-            for line in lines:
-                line_part = line.strip().split(",")
-                if len(line_part) < 3:
-                    account_file.write(line)
-                    continue
-                if line_part[1] == acc_no:
-                    account_found = True
-                    balance = float(line_part[2])
-                    withdraw_amount = amount()
-                    new_balance = balance - withdraw_amount
-                    account_file.write(f"{line_part[0]},{acc_no},{new_balance}\n")
-                    date_time = datetime.now().strftime('%d-%m-%Y %A %I:%M %p')
-                    with open("transaction.txt", "a") as transaction_file:
-                        transaction_file.write(f"{acc_no},{balance},Withdraw,{withdraw_amount},{date_time}\n")
-                        print("\naccount number :",acc_no,  "|"   "Withdraw amount :",withdraw_amount,   "|"  "Withdraw time   :",date_time )
-
-                       
+    ac_no = input("Enter your account number :")
+    try: 
+        with open("account_no.txt" , "r") as account_file:
+            for line in account_file:
+                parts = line.strip().split(",")
+                if ac_no == parts[1]:  
                     
-                    print("\nWithdrawal successful! Your current balance is:", new_balance)
-                else:
-                    account_file.write(line)
-            if not account_found:
-                print("\naccount number not found:",acc_no)
-    except FileNotFoundError:
-        print("\naccount_no.txt not found" )
-    except Exception:
-        print("\nwelcome !")
+                    balance = float(parts[-1])
+                    
+                    withdraw = amount()
+                    if balance >= withdraw:
+            
+                        new_balance = balance - withdraw
+                        date_time = datetime.now().strftime('%d-%m-%Y %A %I:%M %p')
+                        with open("account_no.txt" , "w") as account_file:
+                            account_file.write(f"{parts[0]},{parts[1]},{new_balance}\n")
+                        with open("transaction.txt","a") as transaction_file:
+                            transaction_file.write(f"{ac_no},{balance},Withdraw,{withdraw},{date_time}\n")
+                            print(Fore.CYAN+Style.BRIGHT+"\nWithdrawal successful! Your current balance is:", new_balance)
 
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+                            print(Fore.CYAN+Style.BRIGHT+"\naccount number :",ac_no,  "|"   "Withdraw amount :",withdraw,   "|"  "Withdraw time   :",date_time )
+                            break
+                    else:
+                        print(Fore.RED+Style.BRIGHT+"your balance is not enough!")
+                else:
+                    print(Fore.RED+Style.BRIGHT+"account number:",ac_no ,"not found!")
+
+    except ValueError:
+        print(Fore.RED+Style.BRIGHT+"file not found!")
+
+
+
+
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-view_account_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 def view_account():
     account_number = input("\nEnter your account number :")
     try:
@@ -337,25 +326,25 @@ def view_account():
                         for i in customer_file:
                             c_i = i.strip().split(",")
                             if a_line[0] == c_i[0]:
-                                print(f"\nAccount Number        :{a_line[1]}")
-                                print(f"Customer id             :{c_i[0]}") 
-                                print(f"Name                    :{c_i[1]}")
-                                print(f"NIC_N0                  :{c_i[2]}")
-                                print(f"Age                     :{c_i[3]}")
-                                print(f"Gender                  :{c_i[4]}")
-                                print(f"Address                 :{c_i[5]}")
-                                print(f"Phone_No                :{c_i[6]}\n")   
+                                print(Fore.CYAN+Style.BRIGHT+f"\n Account Number        :{a_line[1]}")
+                                print(Fore.CYAN+Style.BRIGHT+f"Customer id             :{c_i[0]}") 
+                                print(Fore.CYAN+Style.BRIGHT+f"Name                    :{c_i[1]}")
+                                print(Fore.CYAN+Style.BRIGHT+f"NIC_N0                  :{c_i[2]}")
+                                print(Fore.CYAN+Style.BRIGHT+f"Age                     :{c_i[3]}")
+                                print(Fore.CYAN+Style.BRIGHT+f"Gender                  :{c_i[4]}")
+                                print(Fore.CYAN+Style.BRIGHT+f"Address                 :{c_i[5]}")
+                                print(Fore.CYAN+Style.BRIGHT+f"Phone_No                :{c_i[6]}\n")   
                             
                             
         
                 else:
-                    print("\ncustomer account number not found !")
+                    print(Fore.RED+Style.BRIGHT+"\ncustomer account number not found !")
 
     except FileNotFoundError:
-        print("\nfile not found !")
+        print(Fore.RED+Style.BRIGHT+"\nfile not found !")
 
 
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_transaction_history-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 def transaction_history():
     acc_no = input("\nEnter your account number: ")
@@ -366,18 +355,18 @@ def transaction_history():
             for trans_line in transaction_file:
                 trans_data = trans_line.strip().split(",")
                 if acc_no == trans_data[0]:
-                    print(f"{trans_data[0]:<10}{trans_data[1]:<15}{trans_data[2]:<10}{trans_data[3]:<20}{trans_data[4]:<15}\n")
+                    print(Fore.CYAN+Style.BRIGHT+f"{trans_data[0]:<10}{trans_data[1]:<15}{trans_data[2]:<10}{trans_data[3]:<20}{trans_data[4]:<15}\n")
                     found = True
                 
                     
-                if not found:
-                    print("System Too Busy !, Please Try Later")
+            if not found:
+                print(Fore.RED+Style.BRIGHT+"System Too Busy !, Please Try Later")
             
     except FileNotFoundError:
-        print("\nTransaction file not found.")
+        print(Fore.RED+Style.BRIGHT+"\nTransaction file not found.")
     
 
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_update-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
                
@@ -398,7 +387,7 @@ def update():
                 if up_line[0] == customer_id:
                     customer_found = True
                     while True:
-                        print("\n====== MENU ======")
+                        print(Fore.YELLOW+Style.BRIGHT+"\n====== MENU ======")
                         print("1. Change name")
                         print("2. Change NIC number")
                         print("3. Change age")
@@ -410,7 +399,7 @@ def update():
                         try:
                             choice = int(input("\nEnter your choice: "))
                         except ValueError:
-                            print("\nInvalid input! Please enter a number.")
+                            print(Fore.RED+Style.BRIGHT+"\nInvalid input! Please enter a number.")
                             continue
 
                         if choice == 1:
@@ -428,7 +417,7 @@ def update():
                         elif choice == 7:
                             break  
                         else:
-                            print("\nInvalid number! Please try again.")
+                            print(Fore.RED+Style.BRIGHT+"\nInvalid number! Please try again.")
 
                     
                     customer_file.write(",".join(up_line) + "\n")
@@ -442,36 +431,50 @@ def update():
             print("\nCustomer details updated successfully.")
 
     except FileNotFoundError:
-        print("\ncustomer_file not found")
+        print(Fore.RED+Style.BRIGHT+"\ncustomer_file not found")
+
+
+
+    
+
+
+
+
+
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-customer_password_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 def customer_password():
-    User_id = input("\nEnter your user ID :")
+    customer_id = input("\nEnter your customer ID :")
+    while True:
+        try:
+            with open("user.txt" , "r") as user_file:
+                for line in user_file:
+                    U_line = line.strip().split(",")
+                    if customer_id == U_line[-1]:
 
-    try:
-        with open("user.txt" , "r") as user_file:
-            for line in user_file:
-                U_line = line.strip().split(",")
-                if User_id == U_line[0]:
-                    user_name = input("Enter your username :" )
-                    pass_word = input("Enter your password :" )
-                    if user_name == U_line[1] and pass_word == U_line[2]:
-                        print("\nSuccessful login!")
-                    else:
-                        print("\nUnsuccessful login. Please try again.")
-                else:
-                    print("\nuser id not found")
-    except FileNotFoundError:
-        print("\nfile not found")
+                        user_name = input("Enter your username :" )
+                        pass_word = input("Enter your password :" )
+                        if user_name == U_line[1] and pass_word == U_line[2]:
+                            print("\nSuccessful login!")
+                            return True
+                            
+                        else:
+                            print(Fore.RED+Style.BRIGHT+"\nUnsuccessful login. Please try again.")
+                            return False
+                
+        except FileNotFoundError:
+            print(Fore.RED+Style.BRIGHT+"\nfile not found")
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
 
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_admin-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
 
 
 def admin():
-    while True:   
+    while True:
             
         create_first_admin()
         a_name = input("\nEnter your username: ")
@@ -494,7 +497,7 @@ def admin():
                                 try:
             
                                     while True:
-                                        print("\n----Admin Menu----")
+                                        print(Fore.YELLOW+Style.BRIGHT+"\n----Admin Menu----")
                                         print("\nCreate New User              : 101")
                                         print("Create New Account           : 102")
                                         print("Deposit Amount               : 103 ")
@@ -525,6 +528,7 @@ def admin():
                                             transaction_history()
                                         elif Choice == 108:
                                             update()
+                                       
                                         elif Choice == 109:
                                             print("\nThank you")
                                             exit()
@@ -533,86 +537,82 @@ def admin():
                             
 
                                 except ValueError:
-                                    print("\nInvalid choice please enter a number")
+                                    print(Fore.RED+Style.BRIGHT+"\nInvalid choice please enter a number")
                     else:
-                        print("\nUnsuccessful login. Please try again.")
+                        print(Fore.RED+Style.BRIGHT+"\nUnsuccessful login. Please try again.")
 
 
                             
 
             except FileNotFoundError:
-                        print("\nUser file not found.")
+                        print(Fore.RED+Style.BRIGHT+"\nUser file not found.")
 
                                 
 
-# #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+# #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_customer-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
     
 
 def customer():
-    
-    while True:
-        print("\n----Customer Menu----")
-        print("\nDeposit Amount           : 1 ")
-        print("Withdraw Money           : 2")
-        print("Check Balance            : 3")
-        print("View Account             : 4 ")
-        print("transaction History      : 5")
-        print("Exit                     : 6\n" )
+        if True:
+            U_P = customer_password()
+            if U_P == True:
+                while True:
+                    print(Fore.YELLOW+Style.BRIGHT+"\n----Customer Menu----")
+                    print("\nDeposit Amount           : 1 ")
+                    print("Withdraw Money           : 2")
+                    print("Check Balance            : 3")
+                    print("View Account             : 4 ")
+                    print("transaction History      : 5")
+                    print("Exit                     : 6\n" )
+                    
 
-        Choice = int(input("\nEnter your choice :"))
-      
-        try:
+
+
+                    try:
+                        Choice = int(input("\nEnter your choice :"))
+                        if Choice == 1:
+                            deposit()
+
+                        elif Choice == 2:
+                            Withdraw()
+
+                        elif Choice == 3:
+                            balance()
+                        elif Choice == 4:
+                            view_account()
+                        elif Choice == 5:
+                            transaction_history()
+                        elif Choice == 6:
+                            print("\nThank you!")
+                            break
+                        else:
+                            print(Fore.RED+Style.BRIGHT+"\nInvalid Number!")
+                    except ValueError:
+                        print(Fore.RED+Style.BRIGHT+"\nInvalid choice please enter a number")
             
-            if True:
-                customer_password()
-                
-                
-                
-
-           
-    
-                if Choice == 1:
-                    deposit()
-                elif Choice == 2:
-                    Withdraw()
-                elif Choice == 3:
-                    balance()
-                elif Choice == 4:
-                    view_account()
-                elif Choice == 5:
-                    transaction_history()
-                elif Choice == 6:
-                    print("\nThank you!")
-                    break
-                else:
-                    print("\nInvalid Number!")
-        except ValueError:
-            print("\nInvalid choice please enter a number")
-# #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-        
-
-def call_customer_or_admin():
-    while True:
-      
-        print( "\n----Are you customer or admin----")
-        print("You are admin Enter number           : 1")
-        print("You are customer Enter number        : 2")
-        print("Exit                                 : 3\n")
-        
-        Select = int(input("\nEnter your choice :"))
-        try:
-            if Select ==1:
-                admin()
-            elif Select ==2:
-                customer()
-               
-            elif Select ==3:
-                print("Thank you !")
-                break
             else:
-                print("\ninvalid number!" "Try again" )
-        except ValueError:
-            print("\nInvalid choice please enter a number")
-
-call_customer_or_admin()
-
+                print("try again!!!")
+#-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-        
+while True:
+    
+    print(Fore.YELLOW+"\n----Are you customer or admin----")
+    print("You are admin Enter number           : 1")
+    print("You are customer Enter number        : 2")
+    print("Exit                                 : 3\n")
+    
+    
+    try:
+        Select = int(input("\nEnter your choice :"))
+        if Select ==1:
+            admin()
+        elif Select ==2:
+            customer()
+            
+        elif Select ==3:
+            print("Thank you !")
+            break
+        else:
+            print(Fore.RED+Style.BRIGHT+"\ninvalid number!" "Try again" )
+    except ValueError:
+        print(Fore.RED+Style.BRIGHT+"\nInvalid choice please enter a number")
 
