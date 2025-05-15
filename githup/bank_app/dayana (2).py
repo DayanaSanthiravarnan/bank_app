@@ -528,7 +528,7 @@ def admin():
                                         elif Choice == 108:
                                             update()
                                        
-                                        elif Choice == 1:
+                                        elif Choice == 109:
                                             print("\nThank you")
                                             exit()
                                         else:
